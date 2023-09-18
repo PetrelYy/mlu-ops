@@ -143,6 +143,9 @@ mluOpStatus_t mluOpBorderAlignBackward(
   VLOG(5) << "Launch Kernel KernelBorderAlignBackward<<<Union"
           << k_type / CORE_DIM << ", " << k_dim.x << ", " << k_dim.y << ", "
           << k_dim.z << ">>>";
+  VLOG(5) << "Launch Kernel KernelBorderAlignBackward<<<Union"
+          << k_type / CORE_DIM << ", " << k_dim.x << ", " << k_dim.y << ", "
+          << k_dim.z << ">>>";
   CHECK_RETURN(
       API, KernelBorderAlignBackward(
                k_dim, k_type, handle->queue, input_dtype, (void *)grad_output,

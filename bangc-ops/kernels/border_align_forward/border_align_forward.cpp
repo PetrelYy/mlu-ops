@@ -127,6 +127,9 @@ mluOpStatus_t mluOpBorderAlignForward(
   VLOG(5) << "Launch Kernel KernelBorderAlignForward<<<Union"
           << k_type / CORE_DIM << ", " << k_dim.x << ", " << k_dim.y << ", "
           << k_dim.z << ">>>";
+  VLOG(5) << "Launch Kernel KernelBorderAlignForward<<<Union"
+          << k_type / CORE_DIM << ", " << k_dim.x << ", " << k_dim.y << ", "
+          << k_dim.z << ">>>";
   CHECK_RETURN(API, KernelBorderAlignForward(
                         k_dim, k_type, handle->queue, input_desc->dtype, input,
                         boxes, pool_size, origin_n, origin_h, origin_w,
