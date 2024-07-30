@@ -335,6 +335,11 @@ __mlu_func__ void computeLargeButterflyFirststageBatchPingpong(
   nram_buf_offset += max_radix * max_radix * 4;
 
   DT *nram_scratch = (DT *)nram_buf + nram_buf_offset;
+  if (taskId == 0) {
+    LOG_INTERNAL("nram_buf_offset= %d, \n", nram_buf_offset);
+    LOG_INTERNAL("large_radix    = %d, \n", large_radix);
+
+  }
 
   if (small_twiddles_size) {
     if (load_once_twiddles) {

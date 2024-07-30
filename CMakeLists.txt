@@ -4,7 +4,7 @@ project(mluops VERSION ${BUILD_VERSION})
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/test")
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wdeprecated-declarations -fPIC -std=c++11 -pthread -pipe")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wdeprecated-declarations -fPIC -std=c++11 -pthread -pipe")
 set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Wl,--gc-sections -fPIC")
 
 ################################################################################
@@ -78,7 +78,7 @@ elseif (NOT BANG_CNCC_EXECUTABLE)
 endif()
 
 # setup cncc flags
-set(BANG_CNCC_FLAGS "${BANG_CNCC_FLAGS} -Werror -Wdeprecated-declarations -Wall -std=c++11 -fPIC -pthread --neuware-path=${NEUWARE_HOME}")
+set(BANG_CNCC_FLAGS "${BANG_CNCC_FLAGS} -Wall -Wdeprecated-declarations -Wall -std=c++11 -fPIC -pthread --neuware-path=${NEUWARE_HOME}")
 if(${_CMAKE_BUILD_TYPE_LOWER} MATCHES "debug")
   message(STATUS "build debug version")
   set(BANG_CNCC_FLAGS "${BANG_CNCC_FLAGS} -g3 -O0")

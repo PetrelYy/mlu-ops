@@ -88,7 +88,7 @@ __mlu_global__ void MLUKernelFFT1dButterflyColumn(
 mluOpStatus_t MLUOP_WIN_API kernelFFT2dButterflyColumn(
     cnrtDim3_t k_dim, cnrtFunctionType_t k_type, cnrtQueue_t queue,
     mluOpFFTPlan_t fft_plan, const int direction, FFTFlag flag) {
-  VLOG(5) << "Launch Kernel kernelFFT1dButterflyRow <<Union"
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << "," << __LINE__ << "Launch Kernel kernelFFT1dButterflyRow <<Union"
           << k_type / CORE_DIM << ", " << k_dim.x << ", " << k_dim.y << ", "
           << k_dim.z << ">>>";
   if (direction == FFT_FORWARD) {
@@ -116,7 +116,7 @@ mluOpStatus_t MLUOP_WIN_API kernelFFT2dButterflyColumn(
 mluOpStatus_t MLUOP_WIN_API kernelFFT1dButterflyColumn(
     cnrtDim3_t k_dim, cnrtFunctionType_t k_type, cnrtQueue_t queue,
     mluOpFFTPlan_t fft_plan, const int direction, FFTFlag flag) {
-  VLOG(5) << "Launch Kernel kernelFFT1dButterflyRow <<Union"
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Launch Kernel kernelFFT1dButterflyRow <<Union"
           << k_type / CORE_DIM << ", " << k_dim.x << ", " << k_dim.y << ", "
           << k_dim.z << ">>>";
   if (direction == FFT_FORWARD) {
@@ -143,7 +143,7 @@ mluOpStatus_t MLUOP_WIN_API kernelFFT1dButterflyColumn(
 mluOpStatus_t MLUOP_WIN_API kernelFFT2dButterflyRow(
     cnrtDim3_t k_dim, cnrtFunctionType_t k_type, cnrtQueue_t queue,
     mluOpFFTPlan_t fft_plan, const int direction, FFTFlag flag) {
-  VLOG(5) << "Launch Kernel kernelFFT1dButterflyRow <<Union"
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Launch Kernel kernelFFT1dButterflyRow <<Union"
           << k_type / CORE_DIM << ", " << k_dim.x << ", " << k_dim.y << ", "
           << k_dim.z << ">>>";
   if (direction == FFT_FORWARD) {
@@ -170,10 +170,11 @@ mluOpStatus_t MLUOP_WIN_API kernelFFT2dButterflyRow(
 mluOpStatus_t MLUOP_WIN_API kernelFFT1dButterflyRow(
     cnrtDim3_t k_dim, cnrtFunctionType_t k_type, cnrtQueue_t queue,
     mluOpFFTPlan_t fft_plan, const int direction, FFTFlag flag) {
-  VLOG(5) << "Launch Kernel kernelFFT1dButterflyRow <<Union"
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Launch Kernel kernelFFT1dButterflyRow <<Union"
           << k_type / CORE_DIM << ", " << k_dim.x << ", " << k_dim.y << ", "
           << k_dim.z << ">>>";
   if (direction == FFT_FORWARD) {
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ ;
     KERNEL_CHECK((MLUKernelFFT1dButterflyRow<<<k_dim, k_type, queue>>>(
         fft_plan->mlu_addrs.input, fft_plan->mlu_addrs.output,
         fft_plan->mlu_addrs.factors, fft_plan->mlu_addrs.twiddles,
@@ -182,6 +183,7 @@ mluOpStatus_t MLUOP_WIN_API kernelFFT1dButterflyRow(
         direction,  // direction, -1 means invalid(only FFT_IFFT use).
         fft_plan->output_dtype)));
   } else {
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ ;
     KERNEL_CHECK((MLUKernelFFT1dButterflyRow<<<k_dim, k_type, queue>>>(
         fft_plan->mlu_addrs.input, fft_plan->mlu_addrs.output,
         fft_plan->mlu_addrs.factors, fft_plan->mlu_addrs.twiddles_inv,
@@ -198,7 +200,7 @@ mluOpStatus_t MLUOP_WIN_API kernelFFT1dButterflyRow(
 mluOpStatus_t MLUOP_WIN_API kernelRFFT2dButterflyColumn(
     cnrtDim3_t k_dim, cnrtFunctionType_t k_type, cnrtQueue_t queue,
     mluOpFFTPlan_t fft_plan, FFTFlag flag) {
-  VLOG(5) << "Launch kernelFFT1dButterflyColumn <<Union" << k_type / CORE_DIM
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Launch kernelFFT1dButterflyColumn <<Union" << k_type / CORE_DIM
           << ", " << k_dim.x << ", " << k_dim.y << ", " << k_dim.z << ">>>";
 
   KERNEL_CHECK((MLUKernelFFT1dButterflyColumn<<<k_dim, k_type, queue>>>(
@@ -216,7 +218,7 @@ mluOpStatus_t MLUOP_WIN_API kernelRFFT2dButterflyColumn(
 mluOpStatus_t MLUOP_WIN_API kernelIRFFT2dButterflyColumn(
     cnrtDim3_t k_dim, cnrtFunctionType_t k_type, cnrtQueue_t queue,
     mluOpFFTPlan_t fft_plan, FFTFlag flag) {
-  VLOG(5) << "Launch Kernel kernelFFT1dButterflyRow <<Union"
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Launch Kernel kernelFFT1dButterflyRow <<Union"
           << k_type / CORE_DIM << ", " << k_dim.x << ", " << k_dim.y << ", "
           << k_dim.z << ">>>";
 

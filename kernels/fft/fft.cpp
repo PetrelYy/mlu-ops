@@ -2396,11 +2396,11 @@ mluOpStatus_t MLUOP_WIN_API mluOpMakeFFTPlanMany(
   fft_plan->output_dtype = output_desc->dtype;
   fft_plan->execution_dtype = input_desc->onchip_dtype;
 
-  VLOG(5) << "input data type: "
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"input data type: "
           << mluOpGetNameOfDataType(fft_plan->input_dtype);
-  VLOG(5) << "output data type: "
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"output data type: "
           << mluOpGetNameOfDataType(fft_plan->output_dtype);
-  VLOG(5) << "execution data type: "
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"execution data type: "
           << mluOpGetNameOfDataType(fft_plan->execution_dtype);
 
   // fft length check
@@ -2536,7 +2536,7 @@ mluOpStatus_t MLUOP_WIN_API mluOpMakeFFTPlanMany(
   fft_plan->input_desc = fft_input_desc;
   fft_plan->output_desc = fft_output_desc;
 
-  VLOG(5) << "into make FFT1d Policy";
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"into make FFT1d Policy";
   fft_plan->prime = 0;
 
   if (rank == 1) {
@@ -2609,7 +2609,7 @@ mluOpStatus_t MLUOP_WIN_API mluOpMakeFFTPlanMany(
                                          output_desc, rank, n);
 
         } else {
-          VLOG(5) << "into make IRFFT1d Policy";
+          VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"into make IRFFT1d Policy";
           status = makeRFFT1dPolicy(handle, fft_plan);
         }
       } else if (rank == 2) {
@@ -2625,7 +2625,7 @@ mluOpStatus_t MLUOP_WIN_API mluOpMakeFFTPlanMany(
                                          output_desc, rank, n);
 
         } else {
-          VLOG(5) << "into make IRFFT1d Policy";
+          VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"into make IRFFT1d Policy";
           status = makeIRFFT1dPolicy(handle, fft_plan);
         }
       } else if (rank == 2) {
@@ -2647,7 +2647,7 @@ mluOpStatus_t MLUOP_WIN_API mluOpMakeFFTPlanMany(
         // C2C 1D
 
       } else if (rank == 2) {
-        VLOG(5) << "into make FFT2d Policy";
+        VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"into make FFT2d Policy";
 
         // C2C 1D
         status = mluOpMakeFFTPlanC2C2D(handle, fft_plan, input_desc,
@@ -2742,11 +2742,11 @@ mluOpStatus_t MLUOP_WIN_API mluOpExecFFT(mluOpHandle_t handle,
   const std::string exec_api = "[mluOpExecFFT]";
   PARAM_CHECK_NE(exec_api, handle, NULL);
   PARAM_CHECK_NE(exec_api, fft_plan, NULL);
-  VLOG(5) << "input contiguous ? " << fft_plan->is_input_contiguous;
-  VLOG(5) << "output contiguous ? " << fft_plan->is_output_contiguous;
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"input contiguous ? " << fft_plan->is_input_contiguous;
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"output contiguous ? " << fft_plan->is_output_contiguous;
 
   if (fft_plan->batch == 0) {
-    VLOG(5) << "[mluOpExecFFT] Skip zero element tensor";
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"[mluOpExecFFT] Skip zero element tensor";
     return MLUOP_STATUS_SUCCESS;
   }
   // generate mluOpFFTExec prototxt start!
@@ -2781,7 +2781,7 @@ mluOpStatus_t MLUOP_WIN_API mluOpExecFFT(mluOpHandle_t handle,
   mluOpStatus_t status = MLUOP_STATUS_SUCCESS;
 
   bool is_in_place = (input == output);
-  VLOG(5) << exec_api << ": in place ? " << is_in_place;
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<exec_api << ": in place ? " << is_in_place;
   switch (fft_plan->fft_type) {
     // r2c
     case CNFFT_HALF2COMPLEX_HALF:
@@ -2819,6 +2819,7 @@ mluOpStatus_t MLUOP_WIN_API mluOpExecFFT(mluOpHandle_t handle,
         status = MLUOP_STATUS_BAD_PARAM;
       }
       if (fft_plan->rank == 1) {
+        VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__;
         status = execFFT1d(handle, fft_plan, input, scale_factor, workspace,
                            output, direction);
       } else if (fft_plan->rank == 2) {

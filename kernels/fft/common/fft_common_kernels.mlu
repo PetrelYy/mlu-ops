@@ -593,7 +593,7 @@ __mlu_global__ void generateC2CFFTDFTMatrix(mluOpDataType_t data_type, int n,
 mluOpStatus_t MLUOP_WIN_API kernelC2CFFTDFTMatrix(
     cnrtDim3_t k_dim, cnrtFunctionType_t k_type, cnrtQueue_t queue,
     mluOpFFTPlan_t fft_plan, mluOpDataType_t in_r_dtype, int n) {
-  VLOG(5) << "Launch Kernel generateC2CFFTDFTMatrix<<Union" << k_type / CORE_DIM
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Launch Kernel generateC2CFFTDFTMatrix<<Union" << k_type / CORE_DIM
           << ", " << k_dim.x << ", " << k_dim.y << ", " << k_dim.z << ">>>";
   KERNEL_CHECK((generateC2CFFTDFTMatrix<<<k_dim, k_type, queue>>>(
       in_r_dtype, n, fft_plan->matmul_addrs.dft_matrix_addr)));
@@ -603,7 +603,7 @@ mluOpStatus_t MLUOP_WIN_API kernelC2CFFTDFTMatrix(
 mluOpStatus_t MLUOP_WIN_API kernelGenerateRFFTHalfDFTMatrix(
     cnrtDim3_t k_dim, cnrtFunctionType_t k_type, cnrtQueue_t queue,
     mluOpFFTPlan_t fft_plan, mluOpDataType_t in_r_dtype, int n) {
-  VLOG(5) << "Launch Kernel generateRFFTHalfDFTMatrix";
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Launch Kernel generateRFFTHalfDFTMatrix";
   KERNEL_CHECK((generateRFFTHalfDFTMatrix<<<k_dim, k_type, queue>>>(
       in_r_dtype, n, fft_plan->matmul_addrs.dft_matrix_addr)));
   return MLUOP_STATUS_SUCCESS;
@@ -612,7 +612,7 @@ mluOpStatus_t MLUOP_WIN_API kernelGenerateRFFTHalfDFTMatrix(
 mluOpStatus_t MLUOP_WIN_API kernelGenerateRFFTFullDFTMatrix(
     cnrtDim3_t k_dim, cnrtFunctionType_t k_type, cnrtQueue_t queue,
     mluOpFFTPlan_t fft_plan, mluOpDataType_t in_r_dtype, int row, int n) {
-  VLOG(5) << "Launch Kernel generateRFFTFullDFTMatrix";
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Launch Kernel generateRFFTFullDFTMatrix";
   KERNEL_CHECK((generateRFFTFullDFTMatrix<<<k_dim, k_type, queue>>>(
       in_r_dtype, row, n, fft_plan->matmul_addrs.dft_matrix_addr)));
   return MLUOP_STATUS_SUCCESS;
@@ -621,7 +621,7 @@ mluOpStatus_t MLUOP_WIN_API kernelGenerateRFFTFullDFTMatrix(
 mluOpStatus_t MLUOP_WIN_API kernelGenerateIRFFTHalfDFTMatrix(
     cnrtDim3_t k_dim, cnrtFunctionType_t k_type, cnrtQueue_t queue,
     mluOpFFTPlan_t fft_plan, mluOpDataType_t in_r_dtype, int n) {
-  VLOG(5) << "Launch Kernel generateIRFFTHalfDFTMatrix";
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Launch Kernel generateIRFFTHalfDFTMatrix";
   KERNEL_CHECK((generateIRFFTHalfDFTMatrix<<<k_dim, k_type, queue>>>(
       in_r_dtype, n, fft_plan->matmul_addrs.dft_matrix_addr)));
   return MLUOP_STATUS_SUCCESS;
@@ -630,7 +630,7 @@ mluOpStatus_t MLUOP_WIN_API kernelGenerateIRFFTHalfDFTMatrix(
 mluOpStatus_t MLUOP_WIN_API kernelGenerateIRFFTFullDFTMatrix(
     cnrtDim3_t k_dim, cnrtFunctionType_t k_type, cnrtQueue_t queue,
     mluOpFFTPlan_t fft_plan, mluOpDataType_t in_r_dtype, int n) {
-  VLOG(5) << "Launch Kernel kernelGenerateIRFFTFullDFTMatrix";
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Launch Kernel kernelGenerateIRFFTFullDFTMatrix";
   KERNEL_CHECK((generateIRFFTFullDFTMatrix<<<k_dim, k_type, queue>>>(
       in_r_dtype, n, fft_plan->matmul_addrs.dft_matrix_addr)));
   return MLUOP_STATUS_SUCCESS;

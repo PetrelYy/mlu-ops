@@ -684,7 +684,7 @@ static bool findStockham(mluOpHandle_t handle, int &L, int &m, int &L_sub,
       L = L_tmp;
       m = m_tmp;
       L_sub = std::min(L, PAD_UP(L_sub, NFU_ALIGN_NUM));
-      VLOG(5) << "m: " << m << ", L: " << L << ", L_sub: " << L_sub;
+      VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"m: " << m << ", L: " << L << ", L_sub: " << L_sub;
       return true;
     }
   }
@@ -715,7 +715,7 @@ static bool findCooleyTukey(mluOpHandle_t handle, int &L, int &m, int &s) {
     s--;
   }
 
-  VLOG(5) << "m: " << m << ", L: " << L << ", s: " << s;
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"m: " << m << ", L: " << L << ", s: " << s;
 
   return true;
 }
