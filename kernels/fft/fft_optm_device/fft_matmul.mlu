@@ -550,7 +550,7 @@ mluOpStatus_t MLUOP_WIN_API kernelFFTConjMerge(cnrtDim3_t k_dim,
                                                cnrtQueue_t queue, void *output,
                                                void *input, const int len,
                                                const int dtype) {
-  VLOG(5) << "Launch Kernel kernelFFTConjMerge <<Union" << k_type / CORE_DIM
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Launch Kernel kernelFFTConjMerge <<Union" << k_type / CORE_DIM
           << ", " << k_dim.x << ", " << k_dim.y << ", " << k_dim.z << ">>>";
   KERNEL_CHECK((MLUKernelFFTConjMerge<<<k_dim, k_type, queue>>>(output, input,
                                                                 len, dtype)));
@@ -561,7 +561,7 @@ mluOpStatus_t MLUOP_WIN_API
 kernelFFTBatchConjMerge(cnrtDim3_t k_dim, cnrtFunctionType_t k_type,
                         cnrtQueue_t queue, void *output, void *input,
                         const int len, const int batch, const int dtype) {
-  VLOG(5) << "Launch Kernel kernelFFTBatchConjMerge <<Union"
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Launch Kernel kernelFFTBatchConjMerge <<Union"
           << k_type / CORE_DIM << ", " << k_dim.x << ", " << k_dim.y << ", "
           << k_dim.z << ">>>";
   KERNEL_CHECK((MLUKernelFFTBatchConjMerge<<<k_dim, k_type, queue>>>(
@@ -573,7 +573,7 @@ mluOpStatus_t MLUOP_WIN_API
 kernelFFTBatchConjMergeR2C(cnrtDim3_t k_dim, cnrtFunctionType_t k_type,
                            cnrtQueue_t queue, void *output, void *input,
                            const int len, const int batch, const int dtype) {
-  VLOG(5) << "Launch Kernel kernelFFTBatchConjMerge <<Union"
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Launch Kernel kernelFFTBatchConjMerge <<Union"
           << k_type / CORE_DIM << ", " << k_dim.x << ", " << k_dim.y << ", "
           << k_dim.z << ">>>";
   KERNEL_CHECK((MLUKernelFFTBatchConjMergeR2C<<<k_dim, k_type, queue>>>(
@@ -585,7 +585,7 @@ mluOpStatus_t MLUOP_WIN_API
 kernelFFTBatchConjMergeC2R(cnrtDim3_t k_dim, cnrtFunctionType_t k_type,
                            cnrtQueue_t queue, void *output, void *input,
                            const int len, const int batch, const int dtype) {
-  VLOG(5) << "Launch Kernel kernelFFTBatchConjMerge <<Union"
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Launch Kernel kernelFFTBatchConjMerge <<Union"
           << k_type / CORE_DIM << ", " << k_dim.x << ", " << k_dim.y << ", "
           << k_dim.z << ">>>";
   KERNEL_CHECK((MLUKernelFFTBatchConjMergeC2R<<<k_dim, k_type, queue>>>(

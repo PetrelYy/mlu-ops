@@ -23,6 +23,17 @@
 #ifndef KERNELS_KERNEL_H_
 #define KERNELS_KERNEL_H_
 
+#if false
+#define LIGHTBLUE "\033[1;34m"
+#define DARKGREEN "\033[0;32m"
+#define LIGHTWHITE "\033[0;37m"
+#define LOG_INTERNAL(fmt, ...)                                                              \
+  __bang_printf(LIGHTBLUE "[DEBUG]" DARKGREEN "[task_%d:%s:%d]" LIGHTWHITE ":" fmt, taskId, \
+                __FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#define LOG_INTERNAL(fmt, ...)    
+#endif
+
 #if defined(__BANG__)
 #include <mlu.h>
 #endif  // defined(__BANG__)

@@ -269,6 +269,16 @@ __mlu_func__ void computeGenericButterflyOtherstagesMat(
 
   nram_scratch_offset += (align_K * 4 * align_N);
 
+
+  if (taskId < 1) {
+    LOG_INTERNAL("nram_scratch_offset  = %d, \n", nram_scratch_offset);
+    LOG_INTERNAL("radix                = %d, \n", radix);
+    LOG_INTERNAL("butterfly_num        = %d, \n", butterfly_num);
+    LOG_INTERNAL("section_num          = %d, \n", section_num);
+    LOG_INTERNAL("para_large_butterfly = %d, \n", para_large_butterfly);
+    LOG_INTERNAL("II start = %p,  align_K*align_N*4 = %d, sizeof(DT) = %d \n", II, align_K * align_N * 4, sizeof(DT));
+  }
+  return;
   // [para_large_butterfly, radix, butterfly_num * section_num]
   //  -> [radix, para_large_butterfly, butterfly_num * section_num]
 
@@ -288,6 +298,7 @@ __mlu_func__ void computeGenericButterflyOtherstagesMat(
                      &scratch_tw.i[(i - 1) * butterfly_num], para_num,
                      butterfly_num);
   }
+  // return;
 
   __bang_sub(&Fin.r[para_num], RR, II, para_num * (radix - 1));
   __bang_transpose(in_trans.r, Fin.r, radix, para_num);

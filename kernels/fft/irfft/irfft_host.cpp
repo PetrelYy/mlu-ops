@@ -207,9 +207,9 @@ mluOpStatus_t makeIRFFT1dPolicy(mluOpHandle_t handle, mluOpFFTPlan_t fft_plan) {
       // internal_workspace
       fft_plan->workspace_size +=
           fft_plan->matmul_addrs.internal_workspace_size;
-      VLOG(5) << "internal workspace size: "
+      VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"internal workspace size: "
               << fft_plan->matmul_addrs.internal_workspace_size;
-      VLOG(5) << "total workspace size: " << fft_plan->workspace_size;
+      VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"total workspace size: " << fft_plan->workspace_size;
     }; break;
     case CNFFT_FUNC_COOLEY_TUKEY:
     case CNFFT_FUNC_STOCKHAM: {
@@ -409,9 +409,9 @@ mluOpStatus_t makeIRFFT1dPolicy(mluOpHandle_t handle, mluOpFFTPlan_t fft_plan) {
       // internal_workspace
       fft_plan->workspace_size +=
           fft_plan->matmul_addrs.internal_workspace_size;
-      VLOG(5) << "internal workspace size: "
+      VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"internal workspace size: "
               << fft_plan->matmul_addrs.internal_workspace_size;
-      VLOG(5) << "total workspace size: " << fft_plan->workspace_size;
+      VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"total workspace size: " << fft_plan->workspace_size;
     }; break;
     default: {
       status = MLUOP_STATUS_NOT_SUPPORTED;
@@ -587,7 +587,7 @@ static void configureIRFFT1dMatmulWorkspaceAddrs(mluOpHandle_t handle,
                                                  mluOpFFTPlan_t fft_plan,
                                                  void *input, void *workspace,
                                                  void *output) {
-  VLOG(5) << "Into configure IRFFT1d Matmul Workspace Addrs";
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Into configure IRFFT1d Matmul Workspace Addrs";
   size_t workspace_cur_offset = 0;
   size_t workspace_cur_offset_to_end = 0;
   size_t workspace_total_size = fft_plan->workspace_size;
@@ -727,7 +727,7 @@ static void configureIRFFT1dMatmulWorkspaceAddrs(mluOpHandle_t handle,
 static void configureIRFFT1dWorkspaceAddrs(mluOpHandle_t handle,
                                            mluOpFFTPlan_t fft_plan, void *input,
                                            void *workspace, void *output) {
-  VLOG(5) << "Into configure IRFFT1d Workspace Addrs";
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Into configure IRFFT1d Workspace Addrs";
   const std::string make_plan_api = "[configureIRFFT1dWorkspaceAddrs]";
   size_t workspace_size = 0;
   size_t reservespace_size = 0;
@@ -768,10 +768,10 @@ static mluOpStatus_t makeIRFFT1dContiguousInput(mluOpHandle_t handle,
                                                 mluOpFFTPlan_t fft_plan,
                                                 const void *input) {
   std::string api = "[mluOpExecFFT]";
-  VLOG(5) << "into makeIRFFT1dContiguousInput";
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"into makeIRFFT1dContiguousInput";
   auto status = MLUOP_STATUS_SUCCESS;
   if (!fft_plan->is_input_contiguous) {
-    VLOG(5) << "launch mluOpContiguous for irfft1d input";
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"launch mluOpContiguous for irfft1d input";
     mluOpTensorDescriptor_t input_desc;
     status = mluOpCreateTensorDescriptor(&input_desc);
     INTERNAL_CHECK(api, status == MLUOP_STATUS_SUCCESS);
@@ -803,7 +803,7 @@ static mluOpStatus_t makeIRFFT1dContiguousInput(mluOpHandle_t handle,
 static mluOpStatus_t padIRFFT1dContiguousInput(mluOpHandle_t handle,
                                                mluOpFFTPlan_t fft_plan) {
   std::string api = "[mluOpExecFFT]";
-  VLOG(5) << "into padIRFFT1dContiguousInput";
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"into padIRFFT1dContiguousInput";
   mluOpStatus_t status = MLUOP_STATUS_SUCCESS;
 
   mluOpDataType_t in_c_dtype = fft_plan->input_dtype;
@@ -814,7 +814,7 @@ static mluOpStatus_t padIRFFT1dContiguousInput(mluOpHandle_t handle,
   int n = fft_plan->n[0];
   bool need_pad = (fft_plan->inembed[0] != FFT_HALF(n));
   if (need_pad) {
-    VLOG(5) << "launch cnnlOpPad for input pad";
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"launch cnnlOpPad for input pad";
     mluOpTensorDescriptor_t input_desc, padded_input_desc;
     status = mluOpCreateTensorDescriptor(&input_desc);
     INTERNAL_CHECK(api, status == MLUOP_STATUS_SUCCESS);
@@ -850,7 +850,7 @@ static mluOpStatus_t padIRFFT1dContiguousInput(mluOpHandle_t handle,
                       fft_plan->matmul_addrs.input_pad_addr));
 
     // destroy cnnl descriptor
-    VLOG(5) << "irfft cnnlOpPad end";
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"irfft cnnlOpPad end";
     DESTROY_CNNL_TENSOR_DESCRIPTOR(cnnl_input_desc);
     DESTROY_CNNL_TENSOR_DESCRIPTOR(cnnl_padded_input_desc);
 
@@ -890,7 +890,7 @@ static mluOpStatus_t padIRFFT1dContiguousInput(mluOpHandle_t handle,
 static mluOpStatus_t mergeIRFFT1dInput(mluOpHandle_t handle,
                                        mluOpFFTPlan_t fft_plan) {
   std::string api = "[mluOpExecFFT]";
-  VLOG(5) << "into mergeIRFFT1dInput";
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"into mergeIRFFT1dInput";
   mluOpStatus_t status = MLUOP_STATUS_SUCCESS;
   if (fft_plan->fft_strategy == CNFFT_FUNC_COOLEY_TUKEY ||
       fft_plan->fft_strategy == CNFFT_FUNC_STOCKHAM) {
@@ -903,7 +903,7 @@ static mluOpStatus_t mergeIRFFT1dInput(mluOpHandle_t handle,
     int n = fft_plan->n[0];
 
     // 1st transpose: batch * (n / 2 + 1) * 2 --> 2 * batch * (n / 2 + 1)
-    VLOG(5) << "launch mluOpTranspose for input";
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"launch mluOpTranspose for input";
     int padded_input_num = batch * FFT_HALF(n);
     const int trans_dim_num = 2;
     int trans_input_dims[trans_dim_num] = {padded_input_num, COMPLEX};
@@ -920,7 +920,7 @@ static mluOpStatus_t mergeIRFFT1dInput(mluOpHandle_t handle,
 
     // stridedslice: [a, b, c, d]    --> [d, c, b]
     // stridedslice: [a, b, c, d, e] --> [d, c, b]
-    VLOG(5) << "launch mluOpStridedSlice for input";
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"launch mluOpStridedSlice for input";
     mluOpTensorDescriptor_t ss_input_desc, ss_output_desc;
     status = mluOpCreateTensorDescriptor(&ss_input_desc);
     INTERNAL_CHECK(api, status == MLUOP_STATUS_SUCCESS);
@@ -974,7 +974,7 @@ static mluOpStatus_t mergeIRFFT1dInput(mluOpHandle_t handle,
 
     // conat: [a, b, c, d]    + [d, c, b] --> [a, b, c, d, d, c, b]
     // conat: [a, b, c, d, e] + [d, c, b] --> [a, b, c, d, e, d, c, b]
-    VLOG(5) << "launch mluOpConcat for input";
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"launch mluOpConcat for input";
     mluOpTensorDescriptor_t concat_output_desc;
     status = mluOpCreateTensorDescriptor(&concat_output_desc);
     INTERNAL_CHECK(api, status == MLUOP_STATUS_SUCCESS);
@@ -1001,7 +1001,7 @@ static mluOpStatus_t mergeIRFFT1dInput(mluOpHandle_t handle,
                          fft_plan->matmul_addrs.internal_workspace_addr,
                          fft_plan->matmul_addrs.internal_workspace_size,
                          cnnl_concat_output_desc, concat_out_addr));
-    VLOG(5) << "launch mluOpConcat end";
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"launch mluOpConcat end";
 
     DESTROY_CNNL_TENSOR_DESCRIPTOR(cnnl_ss_input_desc);
     DESTROY_CNNL_TENSOR_DESCRIPTOR(cnnl_ss_output_desc);
@@ -1041,7 +1041,7 @@ static mluOpStatus_t mergeIRFFT1dInput(mluOpHandle_t handle,
 static mluOpStatus_t transposeIRFFT1dPaddedInput(mluOpHandle_t handle,
                                                  mluOpFFTPlan_t fft_plan) {
   std::string api = "[mluOpExecFFT]";
-  VLOG(5) << "into transposeIRFFT1dPaddedInput";
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"into transposeIRFFT1dPaddedInput";
   mluOpStatus_t status = MLUOP_STATUS_SUCCESS;
 
   mluOpDataType_t in_c_dtype = fft_plan->input_dtype;
@@ -1053,7 +1053,7 @@ static mluOpStatus_t transposeIRFFT1dPaddedInput(mluOpHandle_t handle,
 
   if (fft_plan->fft_strategy == CNFFT_FUNC_MATMUL) {
     // transpose: batch * (n / 2 + 1) * 2 --> 2 * batch * (n / 2 + 1)
-    VLOG(5) << "launch mluOpTranspose for input MATMUL";
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"launch mluOpTranspose for input MATMUL";
     int padded_input_num = batch * FFT_HALF(n);
     const int trans_dim_num = 2;
     int trans_input_dims[trans_dim_num] = {padded_input_num, COMPLEX};
@@ -1068,7 +1068,7 @@ static mluOpStatus_t transposeIRFFT1dPaddedInput(mluOpHandle_t handle,
                      fft_plan->matmul_addrs.internal_workspace_size, api);
     INTERNAL_CHECK(api, status == MLUOP_STATUS_SUCCESS);
   } else if (fft_plan->fft_strategy == CNFFT_FUNC_COOLEY_TUKEY) {
-    VLOG(5) << "launch mluOpTranspose for input COOLEY_TUKEY";
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"launch mluOpTranspose for input COOLEY_TUKEY";
     int L = fft_plan->L;
     int m = (1 << fft_plan->m);
 
@@ -1094,7 +1094,7 @@ static mluOpStatus_t transposeIRFFT1dPaddedInput(mluOpHandle_t handle,
 static mluOpStatus_t quantizeIRFFT1dPaddedInput(mluOpHandle_t handle,
                                                 mluOpFFTPlan_t fft_plan) {
   std::string api = "[mluOpExecFFT]";
-  VLOG(5) << "into quantizeIRFFT1dPaddedInput";
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"into quantizeIRFFT1dPaddedInput";
   mluOpStatus_t status = MLUOP_STATUS_SUCCESS;
 
   mluOpDataType_t in_c_dtype = fft_plan->input_dtype;
@@ -1165,7 +1165,7 @@ static mluOpStatus_t computeIRFFT1dMatmulResult(mluOpHandle_t handle,
   int n = fft_plan->n[0];
 
   if (fft_plan->fft_strategy == CNFFT_FUNC_MATMUL) {
-    VLOG(5) << "into computeIRFFT1dMatmulResult CNFFT_FUNC_MATMUL";
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"into computeIRFFT1dMatmulResult CNFFT_FUNC_MATMUL";
     // input real matmul dft real
     status = fftQuantMatMul(
         handle, batch, FFT_HALF(n), n, fft_plan->matmul_addrs.input_re_addr,
@@ -1205,7 +1205,7 @@ static mluOpStatus_t computeIRFFT1dMatmulResult(mluOpHandle_t handle,
                          fft_plan->matmul_addrs.internal_workspace_size, api);
     INTERNAL_CHECK(api, status == MLUOP_STATUS_SUCCESS);
   } else if (fft_plan->fft_strategy == CNFFT_FUNC_COOLEY_TUKEY) {
-    VLOG(5) << "into computeIRFFT1dMatmulResult CNFFT_FUNC_COOLEY_TUKEY";
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"into computeIRFFT1dMatmulResult CNFFT_FUNC_COOLEY_TUKEY";
     int L = fft_plan->L;
     int m = (1 << fft_plan->m);
 
@@ -1304,7 +1304,7 @@ mluOpStatus_t mergeIRFFT1dOutput(mluOpHandle_t handle, mluOpFFTPlan_t fft_plan,
                                  const float scale_factor) {
   std::string api = "[mluOpExecFFT]";
   mluOpStatus_t status = MLUOP_STATUS_SUCCESS;
-  VLOG(5) << "launch merge irfft1d output";
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"launch merge irfft1d output";
   if (fft_plan->fft_strategy == CNFFT_FUNC_COOLEY_TUKEY) {
     int core_num = handle->core_num_per_cluster;
     cnrtFunctionType_t k_type = CNRT_FUNC_TYPE_UNION1;
@@ -1351,10 +1351,10 @@ static mluOpStatus_t makeIRFFT1dContiguousOutput(mluOpHandle_t handle,
                                                  mluOpFFTPlan_t fft_plan,
                                                  void *output) {
   std::string api = "[mluOpExecFFT]";
-  VLOG(5) << "into makeIRFFT1dContiguousOutput";
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"into makeIRFFT1dContiguousOutput";
   mluOpStatus_t status = MLUOP_STATUS_SUCCESS;
   if (!fft_plan->is_output_contiguous) {
-    VLOG(5) << "launch copy with stride";
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"launch copy with stride";
     mluOpDataType_t out_r_dtype = fft_plan->output_dtype;
     // create tensor desc
     mluOpTensorDescriptor_t copy_src_desc, copy_dst_desc;
@@ -1727,11 +1727,11 @@ static mluOpStatus_t makeIRFFT2dContiguousInput(mluOpHandle_t handle,
                                                 const void *input,
                                                 void *input_contiguous) {
   std::string api = "[mluOpExecFFT]";
-  VLOG(5) << "into makeIRFFT2dContiguousInput";
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"into makeIRFFT2dContiguousInput";
   auto status = MLUOP_STATUS_SUCCESS;
   if (!fft_plan->is_input_contiguous &&
       fft_plan->fft_strategy != CNFFT_FUNC_MANY_DIST1_2D) {
-    VLOG(5) << "launch mluOpContiguous for irfft2d input";
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"launch mluOpContiguous for irfft2d input";
     mluOpTensorDescriptor_t input_desc;
     status = mluOpCreateTensorDescriptor(&input_desc);
     INTERNAL_CHECK(api, status == MLUOP_STATUS_SUCCESS);
@@ -1764,7 +1764,7 @@ static mluOpStatus_t makeIRFFT2dContiguousOutput(mluOpHandle_t handle,
   mluOpStatus_t status = MLUOP_STATUS_SUCCESS;
   if (!fft_plan->is_output_contiguous &&
       fft_plan->fft_strategy != CNFFT_FUNC_MANY_DIST1_2D) {
-    VLOG(5) << "launch copy with stride";
+    VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"launch copy with stride";
     mluOpDataType_t out_c_dtype = fft_plan->output_dtype;
     // create tensor desc
     mluOpTensorDescriptor_t copy_src_desc, copy_dst_desc;

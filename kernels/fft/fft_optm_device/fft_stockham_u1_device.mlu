@@ -723,7 +723,7 @@ mluOpStatus_t MLUOP_WIN_API
 kernelFFTStockham(cnrtDim3_t k_dim, cnrtFunctionType_t k_type,
                   cnrtQueue_t queue, mluOpFFTPlan_t fft_plan, int direction,
                   const float scale_factor, FFTFlag flag) {
-  VLOG(5) << "Launch Kernel MLUKernelFFTStockham<<Union" << k_type / CORE_DIM
+  VLOG(5) << __FILE__ << ", " << __FUNCTION__ << ", " << __LINE__ << ", " <<"Launch Kernel MLUKernelFFTStockham<<Union" << k_type / CORE_DIM
           << ", " << k_dim.x << ", " << k_dim.y << ", " << k_dim.z << ">>>";
   KERNEL_CHECK((MLUKernelFFTStockham<<<k_dim, k_type, queue>>>(
       fft_plan->matmul_addrs.matmul_re_mul_re_addr,

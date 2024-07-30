@@ -37,7 +37,8 @@ __mlu_func__ void computeMutiStageOnchip(DT *input, DT *output, int *factors,
   int total_num = batch;
   int repeat_num = total_num / taskDim;
   int remain_num = total_num % taskDim;
-
+  
+  // #define FFT_MAXFACTORS 278
   char *nram_buf = nram_buffer + FFT_MAXFACTORS * sizeof(int);
   int *nram_factors = (int *)nram_buffer;
 
@@ -75,6 +76,9 @@ __mlu_func__ void computeMutiStageOnchip(DT *input, DT *output, int *factors,
   const int nfft = factors[1];
 
   radix = factors[5 + 0];
+  if (taskId < 2) {
+    LOG_INTERNAL("nram_buffer start = %p  \n", nram_buffer);
+  }
   section_num = factors[5 + 1];
   in_stride = factors[5 + 3];
   small_factors_offset = factors[5 + 4];
@@ -146,7 +150,7 @@ __mlu_func__ void computeMutiStageOnchip(DT *input, DT *output, int *factors,
           direction, nfft, last_stage, t_start, t_end, load_once_twiddles);
     }
   }
-
+  return;
   stage_count--;
   if (stage_count == 0) {
     return;
